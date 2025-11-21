@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Gait Rehabilitation using Hybrid RL Algorithms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 80px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 700;
+            border-bottom: 3px solid #34495e;
+            padding-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .figure {
+            margin: 30px auto;
+            text-align: center;
+            page-break-inside: avoid;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 0 auto 10px;
+            display: block;
+            background: white;
+            object-fit: contain;
+        }
+
+        .figure-caption {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .dataset-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin: 25px 0;
+        }
+
+        .dataset-section h3 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table th {
+            background-color: #34495e;
+            color: white;
+            font-weight: 600;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .results-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .results-box h4 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+
+        .methodology-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .methodology-list li:before {
+            content: "■ ";
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .references {
+            background: #f8f9fa;
+            padding: 25px;
+            border-left: 4px solid #e74c3c;
+            margin: 30px 0;
+        }
+
+        .references ol {
+            margin-left: 20px;
+        }
+
+        .references li {
+            margin-bottom: 10px;
+        }
+
+        .contributions-table {
+            margin: 30px auto;
+        }
+
+        .contributions-table th {
+            background-color: #2c3e50;
+        }
+
+        .equation {
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .abstract {
+            background: #e8f4f8;
+            padding: 25px;
+            border-left: 4px solid #3498db;
+            margin: 30px 0;
+            font-style: italic;
+        }
+
+        @media print {
+            .container {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adaptive Gait Rehabilitation using Hybrid RL Algorithms</h1>
+        
+        <section id="introduction">
+            <h2>I. Introduction</h2>
+            <div class="abstract">
+                <p>Adaptive gait rehabilitation is a critical field in medical research, aiming to improve mobility and quality of life for individuals with lower-limb disabilities. Traditionally, exoskeletons and other assistive devices have been used to support gait rehabilitation, but they require manual adjustments and lack adaptability. Reinforcement Learning (RL) has emerged as a promising approach to develop intelligent control systems for gait rehabilitation, allowing for real-time adjustments based on feedback from the environment.</p>
+                <p>This report explains a hybrid approach combining Convolutional Neural Networks (CNN) with Proximal Policy Optimization (PPO) and integration of genetic algorithms (Algae optimization). The goal is to develop a robust RL framework capable of learning and adapting to individual patient needs, ultimately providing better gait rehabilitation outcomes.</p>
+            </div>
+        </section>
+
+        <section id="methodology">
+            <h2>II. Methodology</h2>
+            
+            <h3>i. Data Loading and Preprocessing</h3>
+            <p>We have acquired the data from OU-Biometrics dataset (OU-ISIR). There are total 3 datasets namely TrademillDatasetA, TrademillDatasetB and TrademillDatasetD from which only B and D datasets were utilized during this project. Each dataset has its own significance in the label prediction. Input images are converted to tensors and normalized for consistent input to the neural network. By applying the fusion of PPO reinforcement learning method with algae optimization, the data is trained to perform different types of gaits patten identifications. Below is the description of each dataset:</p>
+            
+            <div class="dataset-section">
+                <h4>Dataset A:</h4>
+                <p>This dataset determines the speed feature based on the stair image dataset collected from 34 different subjects.</p>
+            </div>
+
+            <div class="dataset-section">
+                <h4>Dataset B:</h4>
+                <p>This dataset demonstrates the correlation of clothing with the gait pattern sequence. This dataset was used to experiment PPO+Algae with CNN as it has more samples. We have made custom labels narrowing down the samples to train on gait patterns.</p>
+            </div>
+
+            <div class="dataset-section">
+                <h4>Dataset D:</h4>
+                <p>This dataset is used to analyze the NAC values which will help us checking for abnormalities or fluctuations in gait patterns. In case of this dataset, gait fluctuations are measured by Normalized AutoCorrelation (NAC) for the temporal axis of size-normalized gait silhouette images. By doing this, the recursive nature of the gait aspect is tackled and hence the model training would improve.</p>
+            </div>
+
+            <div class="figure">
+                <img src="pdf_images/page_2_img_Im1.png" alt="Dataset B input images">
+                <div class="figure-caption">Fig - Dataset B input images</div>
+            </div>
+
+            <h3>ii. Convolutional Neural Network (CNN)</h3>
+            <p>Our project utilizes CNN as the underlying architecture for learning the feature maps from image data. The model consists of:</p>
+            <ul class="methodology-list">
+                <li><strong>Convolutional Layers:</strong> Both dataset B and D are trained upon a 3 layered with ReLU activation and batch normalization, followed by a max-pooling layer (2,2) to reduce spatial dimensions.</li>
+                <li><strong>Fully Connected Layers:</strong> A sequence of dense layers, including a dropout layer for regularization, and a final output layer corresponding to the number of actions.</li>
+                <li><strong>Output Layer:</strong> A final linear layer to produce outputs for number of actions to the reinforcement agent which are 4 in case of dataset B and 2 for the dataset D.</li>
+            </ul>
+
+            <div class="figure">
+                <img src="pdf_images/page_2_img_Im2.png" alt="Proposed project methodology">
+                <div class="figure-caption">Fig - Proposed project methodology</div>
+            </div>
+
+            <h3>iii. Proximal Policy Optimization (PPO) + Algae Optimization</h3>
+            <p>Proximal Policy Optimization (PPO) is a reinforcement learning technique that balances exploration and exploitation during training. This method uses a clipping mechanism to stabilize policy updates and minimize large changes. Algae optimization is inspired by genetic algorithms, using crossover and mutation operations to evolve the weights of the neural networks. This evolutionary approach helps maintain a diverse population of models, promoting robustness and adaptability.</p>
+            
+            <p>In our project the AlgaePPO class is designed to integrate PPO with Algae-based operations, creating a framework for adaptive training with the below specifications for the methods.</p>
+            
+            <ul class="methodology-list">
+                <li><strong>Population of Policies:</strong> Multiple CNN models are initialized with random weights and trained concurrently.</li>
+                <li><strong>Optimizers and Learning Rate Schedulers:</strong> Adam optimizers are used to update model parameters with default 0.001 learning rate in case of dataset D and for dataset B there are learning rate schedulers to adjust learning rates over time. Batch size of 256 is utilized in case of dataset D for training. We have utilized dropout in case of dataset B with 0.5 as the p value.</li>
+                <li><strong>Loss Function:</strong> CrossEntropyLoss is used to compute the loss between predicted outputs and actual labels.</li>
+            </ul>
+
+            <h3>iv. Training and Testing</h3>
+            <p>While training the Algae and PPO fusion on MNSIT dataset during the checkpoint phase we learned after running the model over 100 iterations, we got the average accuracy of 14.5% at a very initial level of experimenting with the selected best set of parameters for the previous neural network by the Algae's method. From the results it was identified that the average fitness is increasing which hints the effectiveness of the using the PPO in fusion with the CNN for training the model.</p>
+            
+            <p>Hence proceeding ahead with OU-ISIR Treadmill dataset the training process involved below specifications:</p>
+            
+            <ul class="methodology-list">
+                <li><strong>Training Episodes:</strong> We have run 50 episodes in case of dataset B model for the model to learn and adapt and 10 episodes in case of dataset D since the dataset B has higher volume of data the model takes more time to extract the important features from the data.</li>
+                <li><strong>Evaluation and Weight Update:</strong> After each episode, the models are evaluated for fitness, and their weights are updated based on their performance like loss, optimizers and evolution parameters. The code iterates over the training data loader, calculating the loss for each batch, performing backpropagation, and updating the model weights.</li>
+                <li><strong>Crossover and Mutation:</strong> The crossover method performs crossover between two parent models' weights to create a child model's weights. The mutate method introduces random mutations to the weights of a model and it is adjusted based on specific episodic frequency. Every 5 episodes, crossover and mutation operations are applied to introduce variability and evolve the population for the dataset B.</li>
+            </ul>
+            
+            <p>In case of dataset D, the number of CNN models used is 2 for analyzing the NAC patterns with the gait data.</p>
+        </section>
+
+        <section id="results">
+            <h2>III. Experimental Results</h2>
+            <p>The experiment involved training the population of models for 100 episodes. The following outcomes were observed:</p>
+
+            <h3>DATASET B</h3>
+            <p>In our dataset B we have mainly 4 categories ("40_Percent", "70_Percent", "80_Percent", "100_Percent") with corresponding labels (0, 1, 2, 3) representing the various classes for the dataset. Firstly, the method runs three different models on each episode and fetches the results, after every 5 episodes the evolve() method implements a simple crossover mechanism, selecting two parent models to generate child weights through a combination of their parameters. The mutation process introduces variability, with a 10% mutation probability, to prevent overfitting and maintain robustness.</p>
+
+            <h4>Loss (Training phase):</h4>
+            <div class="figure">
+                <img src="pdf_images/page_4_img_Im3.png" alt="Training loss for dataset B">
+                <div class="figure-caption">Fig - Training loss for dataset B</div>
+            </div>
+            <p>From the above results from the model, we can observe that the training loss is still fluctuating but however the algae method helps to tackle this by evolving a better model. The low values of losses explain the robust and effective gait pattern segmentation.</p>
+
+            <h4>Test Accuracy:</h4>
+            <div class="figure">
+                <img src="pdf_images/page_4_img_Im4.png" alt="Accuracy vs Episodes for dataset B">
+                <div class="figure-caption">Fig - Accuracy vs Episodes for dataset B</div>
+            </div>
+            <p>The training results show a steady increase in accuracy over 50 episodes, with the evolution process contributing to improved performance. Early episodes demonstrate moderate accuracy, while later episodes consistently achieve high accuracy (above 99%).</p>
+            
+            <p>The evaluation process on a test dataset indicates high accuracy across the models, with most achieving near perfect or perfect accuracy on the test set. This outcome suggests effective training and robust model performance.</p>
+
+            <h3>DATASET D</h3>
+            <p>While measuring the NAC values, the model returned the optimal shift value of 69 and maximum NAC value near to 0.975. The optimal shift value represents the number of frames where the Normalized AutoCorrelation (NAC) between gait silhouettes is maximized. An optimal shift of 69 frames suggests that the gait cycle repeats approximately every 69 frames, given the conditions of your analysis. This shift is the most consistent period over which the gait patterns exhibit the least variation (or the highest similarity) when compared across different periods within the gait sequence.</p>
+            
+            <p>The NAC value near 1 (like 0.9748) indicates a very high degree of similarity and consistency in the gait pattern at the optimal shift. A high NAC value implies that the subject's gait is stable and consistent over time, which is often a sign of a healthy and regular gait. This could be particularly useful in medical settings where deviations from such patterns may indicate health issues.</p>
+
+            <div class="figure">
+                <img src="pdf_images/page_5_img_Im5.png" alt="ROC plot for 2 output classes">
+                <div class="figure-caption">Fig - ROC plot for 2 output classes</div>
+            </div>
+
+            <h4>Loss (Training phase):</h4>
+            <div class="figure">
+                <img src="pdf_images/page_5_img_Im6.png" alt="Training loss for dataset D">
+                <div class="figure-caption">Fig - Training loss for dataset D</div>
+            </div>
+            <p>Our model training loss decreases significantly from epoch 1 to epoch 10, indicating effective model learning and convergence. The loss decreases from 1.2054 to 0.0045, suggesting that the model has learned to minimize the error during training.</p>
+
+            <h4>Test Accuracy:</h4>
+            <p>The test accuracy is improving consistently over the epochs, starting from 0.3505 in epoch 1 and reaching 1.0000 in epochs 6, 7, 8, and 10. This pattern indicates that the model has successfully learned from the training data and is generalizing well to the test data.</p>
+
+            <div class="highlight-box">
+                <h4>Validation and Overfitting:</h4>
+                <p>The high (~1) test accuracy raise concerns about overfitting. A sharp increase in accuracy could mean the model has memorized the training data rather than generalizing patterns. It is crucial to validate the model with additional unseen data to ensure robustness.</p>
+            </div>
+
+            <p>We have also done SHAP analysis (Shapley Additive exPlanations) to decipher the influence of different regions within gait image data on the predictions made by a convolutional neural network (CNN). The color-coded SHAP values, where red indicates positive influence and blue indicates negative, allowed for a detailed inspection of how specific segments of the gait cycle—such as heel strike, toe-off, and mid-stance—affect the model's decision-making process.</p>
+
+            <div class="figure">
+                <img src="pdf_images/page_6_img_Im7.png" alt="SHAP analysis visualization">
+                <div class="figure-caption">Fig - SHAP analysis visualization</div>
+            </div>
+
+            <p>Through this visualization, we can conclude that it can identify key patterns and anomalies in walking styles that are critical for diagnosing health conditions and evaluating rehabilitation progress. This insight is invaluable as it directs attention to specific features of the gait that are most relevant, thereby guiding further data collection, feature engineering, and refinement of the CNN architecture.</p>
+        </section>
+
+        <section id="references">
+            <h2>IV. References</h2>
+            <div class="references">
+                <ol>
+                    <li>https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/</li>
+                    <li>Y. Makihara, H. Mannami, A. Tsuji, M.A. Hossain, K. Sugiura, A. Mori, and Y. Yagi, "The OU-ISIR Gait Database Comprising the Treadmill Dataset," IPSJ Trans. on Computer Vision and Applications, Vol. 4, pp. 53-62, Apr. 2012.</li>
+                    <li>Reward-Adaptive Reinforcement Learning: Dynamic Policy Gradient Optimization for Bipedal Locomotion</li>
+                    <li>A Data-Driven Reinforcement Learning Solution Framework for Optimal and Adaptive Personalization of a Hip Exoskeleton</li>
+                    <li>Static Standing Balance with Musculoskeletal Models Using PPO With Reward Shaping</li>
+                    <li>A Novel Deep Reinforcement Learning Based Framework for Gait Adjustment</li>
+                    <li>Challenges with reinforcement learning in prosthesis</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="contributions">
+            <h2>V. Contributions</h2>
+            <table class="contributions-table">
+                <thead>
+                    <tr>
+                        <th>Team Member</th>
+                        <th>Project Part</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gautam Galada</td>
+                        <td>Research on Gait patterns, PPO, Algae, NAC estimation, Data Understanding, Code base pipelining.</td>
+                    </tr>
+                    <tr>
+                        <td>Henish Viradiya</td>
+                        <td>Implementation of PPO + Algae fusion method and performed hyperparameter tuning. Built data loaders.</td>
+                    </tr>
+                    <tr>
+                        <td>Siddharth Haveliwala</td>
+                        <td>Building of CNN and configuring Algae + PPO fusion method. Research documentation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+</body>
+</html>
